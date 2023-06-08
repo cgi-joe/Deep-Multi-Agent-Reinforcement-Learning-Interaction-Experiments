@@ -1,0 +1,84 @@
+Failure # 1 (occurred at 2023-03-29_10-22-16)
+Traceback (most recent call last):
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\tune\execution\ray_trial_executor.py", line 989, in get_next_executor_event
+    future_result = ray.get(ready_future)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\worker.py", line 2277, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::PPO.__init__()[39m (pid=29416, ip=127.0.0.1, repr=PPO)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 127, in __init__
+    validate=trainer_config.get("validate_workers_after_construction"),
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 269, in add_workers
+    self.foreach_worker(lambda w: w.assert_healthy())
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\evaluation\worker_set.py", line 391, in foreach_worker
+    remote_results = ray.get([w.apply.remote(func) for w in self.remote_workers()])
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\client_mode_hook.py", line 105, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\worker.py", line 2277, in get
+    raise value
+ray.exceptions.RayActorError: The actor died because of an error raised in its creation task, [36mray::RolloutWorker.__init__()[39m (pid=37992, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x0000023A33D162C8>)
+TypeError: change_space() takes 1 positional argument but 2 were given
+
+During handling of the above exception, another exception occurred:
+
+[36mray::RolloutWorker.__init__()[39m (pid=37992, ip=127.0.0.1, repr=<ray.rllib.evaluation.rollout_worker.RolloutWorker object at 0x0000023A33D162C8>)
+  File "python\ray\_raylet.pyx", line 655, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 696, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 662, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 666, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 613, in ray._raylet.execute_task.function_executor
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\function_manager.py", line 674, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\util\tracing\tracing_helper.py", line 466, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\evaluation\rollout_worker.py", line 490, in __init__
+    self.env = env_creator(copy.deepcopy(self.env_context))
+  File "D:\Projects\correlation\pistonball\pistonball.py", line 74, in <lambda>
+    register_env(env_name, lambda config: ParallelPettingZooEnv(env_creator(config)))
+  File "D:\Projects\correlation\pistonball\pistonball.py", line 65, in env_creator
+    env = ss.resize_v1(env, x_size=84, y_size=84)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\generic_wrappers\basic_wrappers.py", line 30, in resize_v1
+    return basic_obs_wrapper(env, basic_transforms.resize, scale_tuple)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\generic_wrappers\basic_wrappers.py", line 21, in basic_obs_wrapper
+    return observation_lambda_v0(env, change_obs, change_space)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\utils\wrapper_chooser.py", line 34, in __call__
+    self.aec_wrapper(parallel_to_aec(env), *args, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\lambda_wrappers\observation_lambda.py", line 32, in __init__
+    self.observation_space(agent)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\lambda_wrappers\observation_lambda.py", line 63, in observation_space
+    return self.change_obs_space_fn(old_obs_space)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\generic_wrappers\basic_wrappers.py", line 15, in change_space
+    space = module.change_obs_space(space, param)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\utils\basic_transforms\resize.py", line 18, in change_obs_space
+    return convert_box(lambda obs: change_observation(obs, obs_space, param), obs_space)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\utils\basic_transforms\__init__.py", line 5, in convert_box
+    new_low = convert_obs_fn(old_box.low)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\utils\basic_transforms\resize.py", line 18, in <lambda>
+    return convert_box(lambda obs: change_observation(obs, obs_space, param), obs_space)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\supersuit\utils\basic_transforms\resize.py", line 22, in change_observation
+    import tinyscaler
+ModuleNotFoundError: No module named 'tinyscaler'
+
+During handling of the above exception, another exception occurred:
+
+[36mray::PPO.__init__()[39m (pid=29416, ip=127.0.0.1, repr=PPO)
+  File "python\ray\_raylet.pyx", line 655, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 696, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 662, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 666, in ray._raylet.execute_task
+  File "python\ray\_raylet.pyx", line 613, in ray._raylet.execute_task.function_executor
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\_private\function_manager.py", line 674, in actor_method_executor
+    return method(__ray_actor, *args, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\util\tracing\tracing_helper.py", line 466, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\algorithms\algorithm.py", line 308, in __init__
+    super().__init__(config=config, logger_creator=logger_creator, **kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\tune\trainable\trainable.py", line 157, in __init__
+    self.setup(copy.deepcopy(self.config))
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\util\tracing\tracing_helper.py", line 466, in _resume_span
+    return method(self, *_args, **_kwargs)
+  File "C:\Users\joeku\anaconda3\envs\overcooked_ai\lib\site-packages\ray\rllib\algorithms\algorithm.py", line 443, in setup
+    raise e.args[0].args[2]
+ModuleNotFoundError: No module named 'tinyscaler'
+
